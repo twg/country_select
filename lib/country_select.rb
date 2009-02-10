@@ -15,7 +15,7 @@ module ActionView
         country_options = ""
 
         if priority_countries
-          country_options += options_for_select( COUNTRIES.slice(*priority_countries).invert, selected)
+          country_options += options_for_select( COUNTRIES.slice(*priority_countries).invert.sort, selected)
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
         end
 

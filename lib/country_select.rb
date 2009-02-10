@@ -21,6 +21,12 @@ module ActionView
 
         return country_options + options_for_select(COUNTRIES.invert.sort, selected)
       end
+      
+      # returns country name based on code
+      def country_from_code(code)
+        COUNTRIES[code]
+      end
+      
       # All the countries included in the country_options output.
       COUNTRIES = {
         'AD' => 'Andorra',

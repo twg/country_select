@@ -1,4 +1,4 @@
-# ENCODING: UTF-8
+# Encoding: UTF-8
 # CountrySelect
 module ActionView
   module Helpers
@@ -13,14 +13,20 @@ module ActionView
       #
       # NOTE: Only the option tags are returned, you have to wrap this call in a regular HTML select tag.
       def country_options_for_select(selected = nil, priority_countries = nil)
-        country_options = ""
+        if (priority_countries)
+          country_options = ""
 
-        if priority_countries
-          country_options += options_for_select( COUNTRIES.slice(*priority_countries).invert.sort, selected)
-          country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
+          country_options << %[<optgroup label="Common">]
+          country_options << options_for_select(priority_countries.collect { |k| [ COUNTRIES[k], k ] }, selected)
+          country_options << %[</optgroup>]
+          country_options << %[<optgroup label="All">]
+          country_options << options_for_select(COUNTRIES.invert.sort, selected)
+          country_options << %[</optgroup>]
+          
+          country_options
+        else
+          options_for_select(COUNTRIES.invert.sort, selected)
         end
-
-        return country_options + options_for_select(COUNTRIES.invert.sort, selected)
       end
       
       # returns country name based on code
@@ -105,7 +111,7 @@ module ActionView
         'FO' => 'Faroe Islands',
         'FR' => 'France',
         'GA' => 'Gabon',
-        'GB' => 'United Kingdom',
+        'UK' => 'United Kingdom',
         'GD' => 'Grenada',
         'GE' => 'Georgia',
         'GF' => 'French Guiana',

@@ -1,3 +1,4 @@
+# ENCODING: UTF-8
 # CountrySelect
 module ActionView
   module Helpers
